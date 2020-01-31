@@ -123,13 +123,18 @@ public class ContentActivity extends AppCompatActivity {
         findViewById(R.id.contentActivity_moxie).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ContentActivity.this,MoxieActivity.class);
-                intent.putExtra("poetriesid", poetriesid);
-                intent.putExtra("title", title);
-                intent.putExtra("name", name);
-                intent.putExtra("content", content);
-                intent.putExtra("contentLength", contentLength);
-                startActivity(intent);
+                if(user.getUserId().equals("")){
+                    Toast.makeText(ContentActivity.this, "暂未登录，请先登录", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(ContentActivity.this,LoginActivity.class));
+                }else {
+                    Intent intent = new Intent(ContentActivity.this,MoxieActivity.class);
+                    intent.putExtra("poetriesid", poetriesid);
+                    intent.putExtra("title", title);
+                    intent.putExtra("name", name);
+                    intent.putExtra("content", content);
+                    intent.putExtra("contentLength", contentLength);
+                    startActivity(intent);
+                }
             }
         });
     }
