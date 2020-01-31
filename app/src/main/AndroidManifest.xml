@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.edu.jssvc.tangshi">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".link.MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/app_logo"
+        android:label="中国唐代诗词大全"
+        android:roundIcon="@drawable/app_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MoxieList2Activity"></activity>
+        <activity android:name=".activity.ChengjiActivity" />
+        <activity
+            android:name=".activity.MoxieActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".activity.LishiActivity" />
+        <activity android:name=".activity.MoxieListActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.CollectionActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.UserActivity" />
+        <activity android:name=".activity.SilentActivity" />
+        <activity android:name=".activity.ContentActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.PoetsListActivity" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

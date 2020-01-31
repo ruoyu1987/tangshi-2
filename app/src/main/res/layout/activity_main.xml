@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/backgorund_1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#DEB887">
+
+        <ImageView
+            android:id="@+id/mainActivity_user"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:padding="8dp"
+            android:src="@drawable/my"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:paddingRight="45dp"
+            android:text="首页"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/main_title"/>
+
+    <TextView
+        android:id="@+id/mainActivity_All"
+        android:layout_width="170dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/mainbuttonbackground"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="推荐"
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/mainActivity_Search"
+        android:layout_width="170dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/mainbuttonbackground"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="搜索"
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
+
+</LinearLayout>

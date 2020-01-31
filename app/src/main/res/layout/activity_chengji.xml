@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/backgorund_3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#DEB887">
+
+        <ImageView
+            android:id="@+id/chengjiActivity_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/back"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:paddingRight="45dp"
+            android:text="结果"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/chengjiActivity_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:textSize="20dp"
+                        android:text="名字"/>
+
+                    <TextView
+                        android:id="@+id/chengjiActivity_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:textSize="12dp"
+                        android:text="作者-唐代"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="left|center"
+                        android:paddingLeft="10dp"
+                        android:textColor="#000000"
+                        android:textSize="17dp"
+                        android:text="【原文】"/>
+
+                    <TextView
+                        android:id="@+id/chengjiActivity_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|top"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="30dp"
+                        android:textColor="#000000"
+                        android:textSize="12dp"
+                        android:lineSpacingExtra="8dp"
+                        android:text="内容"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="left|center"
+                        android:paddingLeft="10dp"
+                        android:textColor="#000000"
+                        android:textSize="17dp"
+                        android:text="【你写的】"/>
+
+                    <TextView
+                        android:id="@+id/chengjiActivity_content_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|top"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="30dp"
+                        android:textColor="#000000"
+                        android:textSize="12dp"
+                        android:lineSpacingExtra="8dp"
+                        android:text="内容"/>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|right"
+            android:paddingBottom="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/chengjiActivity_fenshu"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:textSize="30dp"
+                android:background="@drawable/chengji_background"
+                android:text="90分"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
