@@ -2,6 +2,7 @@ package cn.edu.jssvc.tangshi.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
@@ -44,18 +45,31 @@ public class ChengjiActivity extends AppCompatActivity {
         String[] contentArray = content.split("。");
         String[] contentXianArray = contentXian.split("。");
         String contentStr = "";
-        String contentXianStr = "";
+        StringBuffer contentXianStr = new StringBuffer();
         for (int i = 0; i < contentArray.length; i++) {
             if (i == contentArray.length - 1) {
                 contentStr += contentArray[i] + "。";
-                contentXianStr += contentXianArray[i] + "。";
+                if(deleteStrFh(contentArray[i]).equals(deleteStrFh(contentXianArray[i]))){
+                    contentXianStr.append("<font>" + contentXianArray[i] + "。</font>");
+                }else{
+                    contentXianStr.append("<font color=\"#FF0000\">" + contentXianArray[i] + "。</font>");
+                }
             }else{
                 contentStr += contentArray[i] + "。\n";
-                contentXianStr += contentXianArray[i] + "。\n";
+                if(deleteStrFh(contentArray[i]).equals(deleteStrFh(contentXianArray[i]))){
+                    contentXianStr.append("<font>" + contentXianArray[i] + "。</font><br>");
+                }else{
+                    contentXianStr.append("<font color=\"#ff0000\">" + contentXianArray[i] + "。</font><br>");
+                }
             }
         }
         textView_content.setText(contentStr);
-        textView_contentXian.setText(contentXianStr);
+        textView_contentXian.setText(Html.fromHtml(contentXianStr.toString()));
         textView_fenshu.setText(intent.getStringExtra("fenshu") + "分");
+    }
+    //    去除字符串
+    public static String deleteStrFh(String s){
+        String str=s.replaceAll("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……& amp;*（）——+|{}【】‘；：”“’。，、？|-]", "");
+        return str;
     }
 }
