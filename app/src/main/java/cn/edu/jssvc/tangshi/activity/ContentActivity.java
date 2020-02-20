@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import cn.edu.jssvc.tangshi.R;
 import cn.edu.jssvc.tangshi.function.MySQLiteOpenHelper;
@@ -137,6 +140,14 @@ public class ContentActivity extends AppCompatActivity {
                 }
             }
         });
+
+        tts = new TextToSpeech(this,new listener());
+        findViewById(R.id.contentActivity_yuedu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tts.speak(title + "      " + name + "      " + content,TextToSpeech.QUEUE_ADD,null);
+            }
+        });
     }
 
     private void getData(String id) {
@@ -212,5 +223,34 @@ public class ContentActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    private TextToSpeech tts;
+    private class listener implements TextToSpeech.OnInitListener {
 
+        @Override
+        public void onInit(int status) {
+            if (status == TextToSpeech.SUCCESS) {
+                //设置播放语言
+                int result = tts.setLanguage(Locale.CHINESE);
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                    Toast.makeText(ContentActivity.this, "不支持", Toast.LENGTH_SHORT).show();
+                }else if(result == TextToSpeech.LANG_AVAILABLE){
+                    //初始化成功之后才可以播放文字
+                    //否则会提示“speak failed: not bound to tts engine
+                    //TextToSpeech.QUEUE_ADD会将加入队列的待播报文字按顺序播放
+                    //TextToSpeech.QUEUE_FLUSH会替换原有文字
+                }
+
+            } else {
+                Log.e("TAG", "初始化失败");
+            }
+
+        }
+        public void stopTTS() {
+            if ( tts  != null) {
+                tts .shutdown();
+                tts .stop();
+                tts = null;
+            }
+        }
+    }
 }

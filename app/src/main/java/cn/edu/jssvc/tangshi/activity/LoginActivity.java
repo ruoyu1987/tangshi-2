@@ -27,6 +27,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        if(!user.getUserId().equals("")){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
         findViewById(R.id.loginActivity_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                                finish();
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             }
                         }
                     },null);

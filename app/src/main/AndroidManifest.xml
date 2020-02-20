@@ -2,28 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.edu.jssvc.tangshi">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <!--连接网络权限，用于执行云端语音能力 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".link.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_logo"
         android:label="中国唐代诗词大全"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/app_logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:networkSecurityConfig="@xml/network_security_config">
-        <activity android:name=".activity.MoxieList2Activity"></activity>
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.ShirenListActivity"></activity>
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MoxieList2Activity" />
         <activity android:name=".activity.ChengjiActivity" />
         <activity
             android:name=".activity.MoxieActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".activity.LishiActivity" />
         <activity android:name=".activity.MoxieListActivity" />
-        <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.CollectionActivity" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.UserActivity" />
         <activity android:name=".activity.SilentActivity" />
         <activity android:name=".activity.ContentActivity" />
         <activity android:name=".activity.SearchActivity" />
@@ -33,7 +34,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -6,32 +6,18 @@
     android:background="@drawable/backgorund_2"
     android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#DEB887">
-
-        <ImageView
-            android:id="@+id/userActivity_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/back"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="18dp"
-            android:textColor="#ffffff"
-            android:gravity="center"
-            android:paddingRight="45dp"
-            android:text="用户"/>
-
-    </LinearLayout>
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="#DEB887"
+        android:text="我"/>
 
     <TextView
-        android:id="@+id/userActivity_name"
+        android:id="@+id/fragment2_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
@@ -42,7 +28,7 @@
         android:text="昵称："/>
 
     <LinearLayout
-        android:id="@+id/userActivity_shoucang"
+        android:id="@+id/fragment2_shoucang"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
@@ -72,7 +58,7 @@
         android:background="#eeeeee" />
 
     <LinearLayout
-        android:id="@+id/userActivity_lishijilu"
+        android:id="@+id/fragment2_lishijilu"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
@@ -101,7 +87,7 @@
         android:background="#eeeeee" />
 
     <LinearLayout
-        android:id="@+id/userActivity_moxie"
+        android:id="@+id/fragment2_moxie"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
@@ -130,7 +116,12 @@
         android:background="#eeeeee" />
 
     <TextView
-        android:id="@+id/userActivity_out"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/fragment2_out"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="20dp"
