@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +14,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Response;
+import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SpeechUtility;
+import com.iflytek.cloud.SynthesizerListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +28,6 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import cn.edu.jssvc.tangshi.R;
 import cn.edu.jssvc.tangshi.function.MySQLiteOpenHelper;
@@ -48,10 +54,14 @@ public class ContentActivity extends AppCompatActivity {
     private MySQLiteOpenHelper mySQLiteOpenHelper;
     private SQLiteDatabase db;
 
+    SpeechSynthesizer mTts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
+        SpeechUtility.createUtility ( this,SpeechConstant.APPID+"=5cc7a0e8" );
+        mTts=SpeechSynthesizer.createSynthesizer ( this,mInitListener );
         mySQLiteOpenHelper = new MySQLiteOpenHelper(ContentActivity.this, MySQLiteOpenHelper.DBNAME, null, 1);
         db = mySQLiteOpenHelper.getWritableDatabase();
         findViewById(R.id.contentActivity_back).setOnClickListener(new View.OnClickListener() {
@@ -141,14 +151,32 @@ public class ContentActivity extends AppCompatActivity {
             }
         });
 
-        tts = new TextToSpeech(this,new listener());
+
         findViewById(R.id.contentActivity_yuedu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tts.speak(title + "      " + name + "      " + content,TextToSpeech.QUEUE_ADD,null);
+                setTtsParams ();
+                int code = mTts.startSpeaking(title + "，" + name + "，" + content, mTtsListener);
+                if (code!= ErrorCode.SUCCESS){
+                    Toast.makeText ( ContentActivity.this,"合成失败，错误码"+code,Toast.LENGTH_LONG ).show ();
+                    Log.d ("tag-ttsint","合成失败，错误码"+code);
+                }
             }
         });
     }
+
+    InitListener mInitListener = new InitListener () {
+        @Override
+        public void onInit(int i) {
+            if (i!= ErrorCode.SUCCESS){
+//                Toast.makeText ( ContentActivity.this,"初始化失败，错误码"+i,Toast.LENGTH_LONG ).show ();
+                Log.d ("tag-ttsint","初始化错误，错误码"+i);
+            }else {
+//                Toast.makeText ( ContentActivity.this,"初始化成功",Toast.LENGTH_LONG ).show ();
+                Log.d ("tag-ttsint","初始化成功");
+            }
+        }
+    };
 
     private void getData(String id) {
         try {
@@ -223,34 +251,73 @@ public class ContentActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    private TextToSpeech tts;
-    private class listener implements TextToSpeech.OnInitListener {
+
+    String voiceFenale="xiaoyan";
+    String mEngineType= SpeechConstant.TYPE_CLOUD;
+    void setTtsParams() {
+        mTts.setParameter(SpeechConstant.PARAMS, null);//清空
+        if (mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {//云端
+            mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
+            mTts.setParameter(SpeechConstant.VOICE_NAME, voiceFenale);
+            mTts.setParameter(SpeechConstant.SPEED, "20");
+            mTts.setParameter(SpeechConstant.PITCH, "50");
+            mTts.setParameter(SpeechConstant.VOLUME, "50");
+        } else {//离线
+            mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
+            mTts.setParameter(SpeechConstant.VOICE_NAME, voiceFenale);
+        }
+        mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
+        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
+        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/xunfei/" + getFileName() + "");//保存路径及名称
+    }
+
+    String getFileName(){
+        Date now=new Date (  );
+        SimpleDateFormat format=new SimpleDateFormat ( "yyyyMMddHHmmss" );
+        return format.format ( now );
+    }
+
+    SynthesizerListener mTtsListener = new SynthesizerListener() {
+        @Override
+        public void onSpeakBegin() {
+//            Toast.makeText(ContentActivity.this, "合成开始", Toast.LENGTH_LONG).show();
+            Log.d("tag-onSpeakBegin", "合成开始");
+        }
 
         @Override
-        public void onInit(int status) {
-            if (status == TextToSpeech.SUCCESS) {
-                //设置播放语言
-                int result = tts.setLanguage(Locale.CHINESE);
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
-                    Toast.makeText(ContentActivity.this, "不支持", Toast.LENGTH_SHORT).show();
-                }else if(result == TextToSpeech.LANG_AVAILABLE){
-                    //初始化成功之后才可以播放文字
-                    //否则会提示“speak failed: not bound to tts engine
-                    //TextToSpeech.QUEUE_ADD会将加入队列的待播报文字按顺序播放
-                    //TextToSpeech.QUEUE_FLUSH会替换原有文字
-                }
+        public void onBufferProgress(int i, int i1, int i2, String s) {
 
+        }
+
+        @Override
+        public void onSpeakPaused() {
+
+        }
+
+        @Override
+        public void onSpeakResumed() {
+
+        }
+
+        @Override
+        public void onSpeakProgress(int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onCompleted(SpeechError speechError) {
+            if (speechError == null) {
+                Toast.makeText(ContentActivity.this, "阅读完成，快来练习阅读吧！", Toast.LENGTH_LONG).show();
+                Log.d("tag-onSpeakBegin", "合成完成");
             } else {
-                Log.e("TAG", "初始化失败");
+                Toast.makeText(ContentActivity.this, "合成失败", Toast.LENGTH_LONG).show();
+                Log.d("tag-onSpeakBegin", "合成失败");
             }
+        }
+
+        @Override
+        public void onEvent(int i, int i1, int i2, Bundle bundle) {
 
         }
-        public void stopTTS() {
-            if ( tts  != null) {
-                tts .shutdown();
-                tts .stop();
-                tts = null;
-            }
-        }
-    }
+    };
 }
